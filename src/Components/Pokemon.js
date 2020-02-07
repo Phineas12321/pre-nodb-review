@@ -8,24 +8,32 @@ class Pokemon extends React.Component{
             isEditing: false,
             userInput: '',
         }
+        this.toggleEdit = this.toggleEdit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
     toggleEdit(){
-        if(this.state.isEditing){
-            this.state.isEditing = false
-        }else{
-            this.state.isEditing = true
-        }
+        this.setState({isEditing: !this.state.isEditing})
     }
 
     handleChange(e){
-
+        this.setState({userInput: e.target.value})
     }
-
     render(){
         return(
             <div>
-                Pokemon
+                {this.state.isEditing? (
+                <div>
+                    <input onChange={this.handleChange} />
+                    <button onClick={() => {
+                        this.props.saveName(this.props.pokemon.id, this.state.userInput)
+                        this.toggleEdit()
+                    }} >Save</button>
+                </div>) : (
+                    <p onDoubleClick={this.toggleEdit} >{this.props.pokemon.name} </p>
+                )}
+                <img src={this.props.pokemon.image} alt={''} />
+                <button onClick={() => this.props.releasePokemon(this.props.pokemon.id)} >Release</button>
             </div>
         )
     }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 class Grass extends React.Component{
     constructor(props){
@@ -12,9 +12,17 @@ class Grass extends React.Component{
     checkGrass(){}
 
     render(){
+        console.log(this.props)
         return(
             <div>
-                Grass
+                <p>{this.props.pokemon.name} </p>
+                <img src={this.props.pokemon.sprites.front_default} alt={''}
+                onClick={()=>{
+                    this.props.catchPokemon({
+                        name: this.props.pokemon.name,
+                        image: this.props.pokemon.sprites.front_default
+                    })
+                }} />
             </div>
         )
     }
